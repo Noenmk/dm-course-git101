@@ -1,0 +1,34 @@
+---
+title: "dm 101"
+format: html
+---
+
+```{r}
+library(ggplot2)
+```
+```{r}
+library(dplyr)
+```
+
+
+```{r}
+data("EuStockMarkets")
+df <- as.data.frame(EuStockMarkets)
+df$time <- time(EuStockMarkets)
+```
+
+
+```{r}
+ggplot(df, aes(x=time,y=DAX))+geom_line()
+```
+
+```{r}
+EuStockMarkets <-
+  EuStockMarkets |>
+  as_tibble() |> 
+  mutate(date = time(EuStockMarkets))
+```
+
+```{r}
+ggplot(EuStockMarkets, aes(x=date,y=CAC))+geom_line(color = "blue")+ geom_line(mapping=aes(y=DAX),color = "salmon")
+```
