@@ -8,6 +8,7 @@ library(ggplot2)
 ```
 ```{r}
 library(dplyr)
+library(tidyr)
 ```
 
 
@@ -30,5 +31,26 @@ EuStockMarkets <-
 ```
 
 ```{r}
-ggplot(EuStockMarkets, aes(x=date,y=CAC))+geom_line(color = "blue")+ geom_line(mapping=aes(y=DAX),color = "salmon")
+ggplot(EuStockMarkets, aes(x=date,y=CAC))+
+  geom_line(color = "blue")+
+  geom_line(mapping=aes(y=DAX),color = "salmon")
 ```
+#Tidyr solutions
+
+```{r}
+EuStockMarkets |>
+  pivot_longer(!date, names_to ="index") |>
+  slice_head(n=18)
+  
+```
+```{r}
+EuStockMarkets |>
+  pivot_longer(!date, names_to ="index") |>
+  ggplot(aes(x=date,y=value,colour=index))+
+  geom_line()
+  
+```
+
+
+
+
